@@ -44,7 +44,7 @@ export function updatePage(value){
     })
     .then(data => {
       console.log("updatePage returned: " + data);
-      dispatch({type:'update-contents', payload: data, editing: false});
+      dispatch({type:'update-contents', payload: data});
       }
     )
     .catch(resp => dispatch({type: 'error', message: resp}))
