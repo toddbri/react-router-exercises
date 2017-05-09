@@ -1,7 +1,26 @@
 import $ from 'jquery';
+import {hashHistory} from 'react-router';
 
+export function lucky(){
+  console.log('in lucky');
+  let asyncAction = function(dispatch) {
+    let destPort = 4000;
+    $.ajax({
+      url: 'http://localhost:'+ destPort + '/api/lucky',
+      type: "GET"
+    })
+    .then(data => {
+      console.log("updatePage returned: " + data);
+      hashHistory.push('/page/' + data.title);
+      }
+    )
+    .catch(resp => dispatch({type: 'error', message: resp}))
+  };
+  return asyncAction;
+}
 
 export function fetchPage(title){
+  console.log('in fetchPage looking for ' + title);
   let asyncAction = function(dispatch) {
     let destPort = 4000;
     $.ajax({
@@ -15,6 +34,11 @@ export function fetchPage(title){
     .catch(resp => dispatch({type: 'error', message: resp}))
   };
   return asyncAction;
+
+}
+
+export function createPage(newTitle){
+    return (dispatch) => dispatch({type:'newPage', newTitle: newTitle})
 
 }
 
@@ -32,8 +56,8 @@ export function updateContent(event){
 
 export function updatePage(value){
   console.log("updatePage: " + value);
-  let content = value.content;
-  console.log("JSON data: " + JSON.stringify({content: value.content}));
+  // let content = value.content;
+  // console.log("JSON data: " + JSON.stringify({content: value.content}));
   let asyncAction = function(dispatch) {
     let destPort = 4000;
     $.ajax({
@@ -43,7 +67,7 @@ export function updatePage(value){
       data: JSON.stringify({content: value.content})
     })
     .then(data => {
-      console.log("updatePage returned: " + data);
+      // console.log("updatePage returned: " + data);
       dispatch({type:'update-contents', payload: data});
       }
     )

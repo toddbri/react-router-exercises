@@ -13,9 +13,40 @@
   padding: 20px;
   color: white;
 }
+.homeButton {
+  margin: 30px;
+}
 
+.title {
+  padding: 15px;
+  font-size: 2em;
+}
+
+.content {
+  border: 2px solid black;
+  width: 85%;
+  height: 200px;
+  margin: auto;
+  text-align: left;
+  background-color: white;
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 20px;
+  overflow: hidden;
+}
+
+.saveButton {
+  margin: 10px;
+}
+.editButton {
+  margin: 10px;
+}
 .App-intro {
   font-size: large;
+}
+.signIn {
+  margin: 30px;
+
 }
 
 @keyframes App-logo-spin {
