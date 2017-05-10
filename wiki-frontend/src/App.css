@@ -2,6 +2,27 @@
   text-align: center;
 }
 
+.userid, .signuplink,  .signinlink {
+  display: inline-block;
+  float: right;
+  margin: 9px;
+}
+
+.lucky {
+    float:left;
+    margin: 8px;
+}
+
+.signuplink, .signinlink {
+  cursor: pointer;
+
+}
+
+.navbar {
+  height: 40px;
+  background-color: rgb(197, 225, 246);
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -13,15 +34,26 @@
   padding: 20px;
   color: white;
 }
+
+.loginbutton {
+  margin: 8px;
+
+}
+
 .homeButton {
   margin: 30px;
 }
 
 .title {
+  width: 85%;
+  margin: auto;
   padding: 15px;
   font-size: 2em;
 }
 
+.editButton {
+  margin-left: 7%;
+}
 .content {
   border: 2px solid black;
   width: 85%;
@@ -33,23 +65,52 @@
   padding: 8px;
   font-size: 20px;
   overflow: hidden;
+  margin-left: 7%;
 }
 
 .saveButton {
-  margin: 10px;
+  margin-left: 7%;
 }
-.editButton {
-  margin: 10px;
-}
+
 .App-intro {
   font-size: large;
 }
-.signIn {
-  margin: 30px;
+.loginbutton {
 
+  width: 70px;
+}
+.logincontainer {
+  text-align: right;
+  border: 1px solid rgb(24, 36, 101);
+  animation: fadeIn single 2s linear;
+}
+.cancel {
+
+  margin-right: 6px;
+}
+
+.usernameinput, .passwordinput {
+    margin: 8px;
+}
+
+.saywhat {
+  text-align: center;
+  margin: 30px;
+  font-size: 20px;
+}
+
+.signin .signup  {
+  height: 40px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  background-color: rgb(244, 226, 153);
+
+}
+@keyframes fadeIn {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+
 }

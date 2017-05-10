@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppLayout from './App';
+import AppContainer from './App';
 import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
 import wikiReducer from './wiki-page/wikipage.reducer';
 import wikiContainer from './wiki-page/wikipage';
-import SignInUpContainer from './wiki-page/signinup';
+import LogInContainer from './wiki-page/signinup';
 import signInUpReducer from './wiki-page/signinup.reducer';
+import AppReducer from './App.reducer';
 import ReduxThunk from 'redux-thunk';
 import * as actions from './wiki-page/wikipage.action'
 // import {Router, Route, Link, IndexLink, hashHistory, IndexRoute} from 'react-router';
@@ -32,7 +33,7 @@ class SayWhat extends React.Component {
 
   render() {
     console.log("SayWhat render was called");
-    return (<div>Sorry, I'm not sure how to handle that request<div className="lucky"><button onClick={()=>location.href = 'http://localhost:3000'}>Home</button></div></div>);
+    return (<div className="saywhat">Sorry, I'm not sure how to handle that request<br/>Maybe you should try the Suprise me button.</div>);
   }
 }
 // const INITIAL_STATE = {startup: true, editing: false};
@@ -45,8 +46,7 @@ const mainReducer = function (state=INITIAL_STATE){
 const reducer = Redux.combineReducers({
   main: mainReducer,
   wiki: wikiReducer,
-  userinfo: signInUpReducer
-
+  userinfo: AppReducer
 });
 
 const HomeContainer = ReactRedux.connect(
@@ -65,10 +65,9 @@ const store = Redux.createStore(
 let vdom = <ReactRedux.Provider store={store}>
   <Router history={hashHistory}>
     <div>
-      <Route path="/" component={AppLayout}>
-        <IndexRoute component={HomeContainer}/>
+      <Route path="/" component={AppContainer}>
+        <Route path="/home" component={HomeContainer}/>
         <Route path="/page/:title" component={wikiContainer}/>
-        <Route path="/signin" component={SignInUpContainer}/>
         <Route path="/*" component={SayWhat}/>
       </Route>
     </div>

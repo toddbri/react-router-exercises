@@ -23,54 +23,59 @@ componentWillReceiveProps(newProps){
   render() {
     console.log("in Wiki render");
     let html;
-    if (this.props.pageInfo) {
-      html = wikiLinkify(this.props.pageInfo.content);
-      console.log('render content value: ' + this.props.pageInfo.content);
-      console.log('html: ' + html);
-    };
+    if (this.props.pageInfo) { html = wikiLinkify(this.props.pageInfo.content) };
 
-    console.log("wiki render was called with param: " + this.props.params.title);
-    console.log('props', this.props);
-    let editButton = this.props.pageInfo ? <button className="editButton" onClick={() => this.props.toggleEdit()}>Edit</button> : null;
+    let editButton = this.props.pageInfo ? <button className="editButton" onClick={() => this.props.toggleEdit()}>Edit</button>
+                                          : null;
 
 
     let noPage = this.props.doesntExist ? <div className="pageNotFoundContainer">
-    <div className="pageNotFound">Sorry but we couldn't find a page for {this.props.params.title}</div>
-    <div className="createNewTopic">Click
-      <button onClick={() => this.props.createPage(this.props.params.title)}
-      className="createButton">here</button> to create this page
-    </div></div>
-    :null;
+                                            <div className="pageNotFound">Sorry but we couldn't find a page for {this.props.params.title}</div>
+                                            <div className="createNewTopic">Click
+                                              <button onClick={() => this.props.createPage(this.props.params.title)}
+                                                      className="createButton">here</button> to create this page
+                                            </div>
+                                          </div>
+                                        :null;
 
-    return (<div><h1>Wiki for {this.props.params.title}</h1>
-            {noPage}
-            {(this.props.editing && !this.props.doesntExist )? (<div>
-                <div className="title">{this.props.pageInfo.title}</div>
-                <div className="contentContainer">
-                  <textarea className="content" onChange={(event) => this.props.updateContent(event)} value={this.props.pageInfo.content} rows='10' cols="100"></textarea>
-                </div>
-                <button className="saveButton" onClick={()=>this.props.updatePage(this.props.pageInfo)}>Save</button>
-                </div> ): null}
-              {(!this.props.editing && !this.props.doesntExist) ? <div>
-              {this.props.pageInfo && this.props.pageInfo.title ?
+    let editinghtml = (this.props.editing && !this.props.doesntExist )? (
                 <div>
                   <div className="title">{this.props.pageInfo.title}</div>
-                  <div dangerouslySetInnerHTML={{__html: html}} className="content"></div>
-                </div>:null}
-              {editButton} </div> :null}
-              <div className="homeButton"><button onClick={()=>location.href = 'http://localhost:3000'}>Home</button></div>
-          </div>);
+                  <div className="contentContainer">
 
-          function wikiLinkify(contents) {
-            return contents.replace(/([A-Z][a-z]+){2,}/g, function(match) {
-              return `<a href="#/page/${match}">${match}</a>`;
-            });
-          }
+                    <textarea className="content" onChange={(event) => this.props.updateContent(event)} value={this.props.pageInfo.content} ></textarea>
 
+                  </div>
+                  <button className="saveButton" onClick={()=>this.props.updatePage(this.props.pageInfo)}>Save</button>
+                </div> )
+                : null;
 
+    let noteditinghtml = (!this.props.editing && !this.props.doesntExist) ?
+                      <div>
+                        {this.props.pageInfo && this.props.pageInfo.title ?
+                          <div>
+                            <div className="title">{this.props.pageInfo.title}</div>
+                            <div className="contentContainer">
+                              <div dangerouslySetInnerHTML={{__html: html}} className="content"></div>
+                            </div>
+                        </div>
+                        :null}
+                        {editButton} </div>
+                        :null ;
+
+    return (<div>
+              {noPage}
+              {editinghtml}
+              {noteditinghtml}
+            </div>);
+
+    function wikiLinkify(contents) {
+      return contents.replace(/([A-Z][a-z]+){2,}/g, function(match) {
+        return `<a href="#/page/${match}">${match}</a>`;
+      });
+    }
 
   }
-
 
 }
 

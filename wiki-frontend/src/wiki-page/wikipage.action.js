@@ -1,24 +1,6 @@
 import $ from 'jquery';
 import {hashHistory} from 'react-router';
 
-export function lucky(){
-  console.log('in lucky');
-  let asyncAction = function(dispatch) {
-    let destPort = 4000;
-    $.ajax({
-      url: 'http://localhost:'+ destPort + '/api/lucky',
-      type: "GET"
-    })
-    .then(data => {
-      console.log("updatePage returned: " + data);
-      hashHistory.push('/page/' + data.title);
-      }
-    )
-    .catch(resp => dispatch({type: 'error', message: resp}))
-  };
-  return asyncAction;
-}
-
 export function fetchPage(title){
   console.log('in fetchPage looking for ' + title);
   let asyncAction = function(dispatch) {

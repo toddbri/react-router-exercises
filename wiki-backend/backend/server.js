@@ -19,10 +19,10 @@ app.get('/api/pages', (req, resp, next) => {
 });
 
 app.get('/api/lucky', (req, resp, next) => {
-  console.log('hello, you have reached api-lucky');
+  // console.log('hello, you have reached api-lucky');
   db.any('select * from page')
     .then(pages => {
-      console.log("got pages");
+      // console.log("got pages");
       let numPages = pages.length;
       // let selectedPage = 0;
       let selectedPage = Math.floor(Math.random() * numPages);
@@ -66,8 +66,9 @@ app.post('/api/signup', (req,resp,next) => {
 });
 
 app.post('/api/signin', (req,resp,next) => {
-  // let token = 
   console.log('starting signin process');
+  let token = uuid.v4();
+  console.log('token: ' + token);
   var username = req.body.username;
   var password = req.body.password;
   var userid = null;
@@ -80,10 +81,11 @@ app.post('/api/signin', (req,resp,next) => {
     return bcrypt.compare(password, loginResults.password)})
   .then(matched => {
     console.log("password matched: " + matched);
-    return matched;
+    let loginData = {token: token };
+    return loginData;
 
   })
-  .then(id => resp.json(userid))
+  .then(loginData => resp.json(loginData))
   .catch(next);
 
 });

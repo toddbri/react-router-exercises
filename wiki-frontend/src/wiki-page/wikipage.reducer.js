@@ -1,7 +1,7 @@
 const INITIAL_STATE = {editing: false, doesntExist: false};
 
 function reducer(state = INITIAL_STATE, action){
-  console.log('recieved: ' + action);
+  console.log('recieved in wikipage reducer: ' + action);
   if (action.type === 'update-contents'){
     console.log("in the udpate-contents reducer");
     return Object.assign({},state,{pageInfo: action.payload, editing: false, doesntExist: false});
@@ -21,7 +21,7 @@ function reducer(state = INITIAL_STATE, action){
     tmpState.pageInfo = Object.assign({},state.pageInfo);
     tmpState.pageInfo.content = action.payload;
     console.log('tmpState.content-after: ' + tmpState.pageInfo.content);
-    return Object.assign({}, tmpState,{doesntExist: false});
+    return Object.assign({}, state, tmpState,{doesntExist: false});
   }
 
   if (action.type === 'error'){

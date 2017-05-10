@@ -1,7 +1,8 @@
-const INITIAL_STATE = {username: '', password: ''};
+const INITIAL_STATE = {username: '', password: '', signin: false, signup:false};
 
 function reducer(state = INITIAL_STATE, action){
   console.log('in signinup reducer');
+
   if (action.type === 'signUp'){
     console.log("in the signUp action handler");
     return Object.assign({});
@@ -22,6 +23,7 @@ function reducer(state = INITIAL_STATE, action){
     return Object.assign({},state, {password: action.password});
 
   }
+
   return state;
 }
 

@@ -1,33 +1,43 @@
 import * as actions from './signinup.action'
-// import * as Redux from 'redux';
 import React from 'react';
 import * as ReactRedux from 'react-redux';
 
 
-class SignInUp extends React.Component {
+class LogIn extends React.Component {
 
   componentDidMount(){
-    console.log("did mount-SignInUp");
+    // console.log("did mount-SignInUp");
   }
 
 componentWillReceiveProps(newProps){
-    console.log("willrecieveProps-signinup");
+    // console.log("willrecieveProps-signinup");
   }
 
   render() {
     console.log("in signinup render");
-    return (<div className="signIn">
-            Username:  <input onChange={(event) => this.props.usernameTyping(event)} value={this.props.username} type="text"/>
-            Password:  <input onChange={(event) => this.props.passwordTyping(event)} value={this.props.password} id="password" name="password" type="text"/>
-            <button onClick={() => this.props.signUp(this.props.username, this.props.password)}>Submit</button><br/>
-            <button onClick={() => this.props.signIn(this.props.username, this.props.password)}>SignIn</button>
-            </div>);
+
+    let signinhtml = <div className="signin">
+                      Username:  <input onChange={(event) => this.props.usernameTyping(event)} value={this.props.username} type="text"/>
+                      Password:  <input onChange={(event) => this.props.passwordTyping(event)} value={this.props.password} id="password" name="password" type="text"/>
+                      <button  className="loginbutton" onClick={() => this.props.signIn(this.props.username, this.props.password)}>SignIn</button>
+                      </div>;
+
+    let signuphtml = <div className="signup">
+                      Username:  <input onChange={(event) => this.props.usernameTyping(event)} value={this.props.username} type="text"/>
+                      Password:  <input onChange={(event) => this.props.passwordTyping(event)} value={this.props.password} id="password" name="password" type="text"/>
+                      <button className="loginbutton" onClick={() => this.props.signUp(this.props.username, this.props.password)}>Submit</button>
+                      </div>;
+
+    let login = this.props.signin ? signinhtml : this.props.signup ? signuphtml : null;
+
+    return (<div className="logincontainer">{login}</div>);
+
   }
 
 }
-const SignInUpContainer = ReactRedux.connect(
+const LogInContainer = ReactRedux.connect(
     state => state.userinfo,
     actions
-)(SignInUp);
+)(LogIn);
 
-export default SignInUpContainer;
+export default LogInContainer;
